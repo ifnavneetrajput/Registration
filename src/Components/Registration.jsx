@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -11,16 +13,48 @@ const RegistrationForm = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+   let fieldName = (e.target.name);
+   let fieldValue = (e.target.value);
+    setFormData((currData) => {
+       console.log(currData);
+        currData[fieldName]=fieldValue
+        return {...currData};
+
+    });
   };
+
+  const validateEmail = (email)=>{
+    console.log(email);
+      const regex = /^[a-zA-z]+[0-9]+@akgec\.ac.in$/;
+      return regex.test(email);
+  }
+
+  const validateNumber = (phone)=>{
+    console.log(phone);
+    const regex = /^\d{10}$/;
+    return regex.test(phone);
+
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
+
+    if (!validateEmail(formData.email)) {
+      toast.error("please enter college mail");
+      
+      return;
+    }
+
+    if(!validateNumber(formData.phone)){
+    toast.error("please enter a valid number");
+      return;
+    }
+    setFormData({name: "",
+      branch: "",
+      studentNo: "",
+      email: "",
+      phone: "",})
     alert("Form submitted successfully!");
   };
 
@@ -43,21 +77,30 @@ const RegistrationForm = () => {
           />
         </div>
 
-      
         <div className="mb-4">
           <label htmlFor="branch" className="block text-gray-700 font-medium mb-2">Branch:</label>
-          <input
-            type="text"
+          <select
             id="branch"
             name="branch"
             value={formData.branch}
             onChange={handleChange}
-            placeholder="Enter your branch"
             required
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          >
+            <option value="">Branch</option>
+                    <option value="CSE(core)">CSE</option>
+                    <option value="CSE(AIML)">CSE(AIML)</option>
+                    <option value="CSE(DS)">CSE(DS)</option>
+                    <option value="CSE">CSE(Hindi)</option>
+                    <option value="CS">CS</option>
+                    <option value="IT">IT</option>
+                    <option value="CSIT">CSIT</option>
+                    <option value="AIML">AIML</option>
+                    <option value="ECE/EN">ECE/EN</option>
+                    <option value="ME">ME</option>
+                    <option value="CE">CE</option>
+          </select>
         </div>
-
   
         <div className="mb-4">
           <label htmlFor="studentNo" className="block text-gray-700 font-medium mb-2">Student No:</label>
@@ -103,8 +146,9 @@ const RegistrationForm = () => {
           />
         </div>
 
-        <Button variant="contained" color="primary" className="w-full py-3 mt-4" onClick={handleSubmit}>Submit</Button>
+        <Button type="submit" variant="contained" color="primary" className="w-full py-3 mt-4" >Submit</Button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
