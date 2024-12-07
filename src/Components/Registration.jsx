@@ -35,20 +35,19 @@ const RegistrationForm = () => {
     return regex.test(phone);
 
   }
-  // const validateStudentNO=(studentNo)=>{
-  //   const regex = /^(21|22|23|24)\d{4}$/;
-
-  //   return regex.test(studentNo);
-  // }
+  const validateStudentNO = (studentNo) => {
+    const regex = /^(21|23|24|25)\d{3,5}$/;
+    return regex.test(studentNo);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
  
     let hasError = false;
-    // if(!validateStudentNO(formData.studentNo)){
-    //   toast.error("please enter a valid student number");
-    //   return hasError = true;
-    // }
+     if(!validateStudentNO(formData.studentNo)){
+       toast.error("please enter a valid student number");
+       return hasError = true;
+     }
 
     if (!validateEmail(formData.email)) {
       toast.error("please enter college mail");
@@ -60,7 +59,10 @@ const RegistrationForm = () => {
     toast.error("please enter a valid phone number");
       return hasError=true;
     }
-
+    if (!formData.email.includes(formData.studentNo)) {
+      toast.error("Your student number must be included in your email.");
+      hasError = true;
+    }
     if(hasError){
       return;
     }
