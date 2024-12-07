@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from '@mui/material/Button';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import { Toaster, toast } from 'sonner';
+
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -15,52 +15,71 @@ const RegistrationForm = () => {
   const handleChange = (e) => {
    let fieldName = (e.target.name);
    let fieldValue = (e.target.value);
-    setFormData((currData) => {
-       console.log(currData);
-        currData[fieldName]=fieldValue
-        return {...currData};
+   setFormData((currData) => {
+   
+     currData[fieldName]=fieldValue
+     return {...currData};
 
-    });
+ });
   };
 
   const validateEmail = (email)=>{
-    console.log(email);
+   // console.log(email);
       const regex = /^[a-zA-z]+[0-9]+@akgec\.ac.in$/;
       return regex.test(email);
   }
 
   const validateNumber = (phone)=>{
-    console.log(phone);
+   // console.log(phone);
     const regex = /^\d{10}$/;
     return regex.test(phone);
 
   }
+  // const validateStudentNO=(studentNo)=>{
+  //   const regex = /^(21|22|23|24)\d{4}$/;
+
+  //   return regex.test(studentNo);
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
+ 
+    let hasError = false;
+    // if(!validateStudentNO(formData.studentNo)){
+    //   toast.error("please enter a valid student number");
+    //   return hasError = true;
+    // }
 
     if (!validateEmail(formData.email)) {
       toast.error("please enter college mail");
       
-      return;
+      return hasError=true;
     }
 
     if(!validateNumber(formData.phone)){
-    toast.error("please enter a valid number");
+    toast.error("please enter a valid phone number");
+      return hasError=true;
+    }
+
+    if(hasError){
       return;
     }
+    console.log("Form Submitted:", formData);
+ 
+    
+
     setFormData({name: "",
       branch: "",
       studentNo: "",
       email: "",
       phone: "",})
-    alert("Form submitted successfully!");
+    toast.success("Form submitted successfully!");
   };
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 ">
       <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">Registration Form</h2>
+      <Toaster position="top-right"/>
       <form onSubmit={handleSubmit}>
       
         <div className="mb-4">
@@ -146,9 +165,11 @@ const RegistrationForm = () => {
           />
         </div>
 
-        <Button type="submit" variant="contained" color="primary" className="w-full py-3 mt-4" >Submit</Button>
+        <div className=" relative mx-auto  z-2 text-center font-albert font-semibold text-[1vw] flex justify-center items-center shadow-sm text-black py-4   px-4  bg-no-repeat bg-center bg-contain w-fit transform hover:scale-105 transition-all ease-in-out delay-0 duration-3000 cursor-pointer ">
+          <button className="p-3 text-2xl font-bolder bg-blue-500 rounded-lg w-36">Submit</button>
+        </div>
       </form>
-      <ToastContainer />
+     
     </div>
   );
 };
