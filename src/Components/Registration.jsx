@@ -5,11 +5,14 @@ import { Toaster, toast } from 'sonner';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    fullname: "",
     branch: "",
-    studentNo: "",
+    student_no: "",
     email: "",
-    phone: "",
+    phone_no: "",
+    gender:"",
+    hostel:" ",
+
   });
 
   const handleChange = (e) => {
@@ -29,54 +32,76 @@ const RegistrationForm = () => {
       return regex.test(email);
   }
 
-  const validateNumber = (phone)=>{
+  const validateNumber = (phone_no)=>{
    // console.log(phone);
     const regex = /^\d{10}$/;
-    return regex.test(phone);
+    return regex.test(phone_no);
 
   }
-  const validateStudentNO = (studentNo) => {
+  const validateStudentNO = (student_no) => {
     const regex = /^(21|23|24|25)\d{3,5}$/;
-    return regex.test(studentNo);
+    return regex.test(student_no);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
- 
-    let hasError = false;
-     if(!validateStudentNO(formData.studentNo)){
-       toast.error("please enter a valid student number");
-       return hasError = true;
-     }
-
-    if (!validateEmail(formData.email)) {
-      toast.error("please enter college mail");
-      
-      return hasError=true;
-    }
-
-    if(!validateNumber(formData.phone)){
-    toast.error("please enter a valid phone number");
-      return hasError=true;
-    }
-    if (!formData.email.includes(formData.studentNo)) {
-      toast.error("Your student number must be included in your email.");
-      hasError = true;
-    }
-    if(hasError){
+  
+  
+    if (!validateStudentNO(formData.student_no.trim())) {
+      toast.error("Please enter a valid student number");
       return;
     }
-    console.log("Form Submitted:", formData);
- 
-    
-
-    setFormData({name: "",
-      branch: "",
-      studentNo: "",
-      email: "",
-      phone: "",})
-    toast.success("Form submitted successfully!");
+    if (!validateEmail(formData.email.trim())) {
+      toast.error("Please enter a valid college email");
+      return;
+    }
+    if (!validateNumber(formData.phone_no.trim())) {
+      toast.error("Please enter a valid phone number");
+      return;
+    }
+    if (!formData.email.includes(formData.student_no.trim())) {
+      toast.error("Your student number must be included in your email.");
+      return;
+    }
+  
+   
+    try {
+      const response = await fetch(
+        "https://brl_registration_12.sugandhi.tech/signup/", 
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+  
+      if (response.ok) {
+        const result = await response.json();
+        toast.success("Form submitted successfully!");
+        console.log("Response:", result);
+  
+     
+        setFormData({
+          fullname: "",
+          branch: "",
+          student_no: "",
+          email: "",
+          phone_no: "",
+          gender: "",
+          hostel: "",
+        });
+      } else {
+        toast.error("Something went wrong. Please try again.");
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      toast.error("Failed to submit form. Please check your connection.");
+      console.error("Error:", error);
+    }
   };
+  
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 ">
@@ -89,8 +114,8 @@ const RegistrationForm = () => {
           <input
             type="text"
             id="name"
-            name="name"
-            value={formData.name}
+            name="fullname"
+            value={formData.fullname}
             onChange={handleChange}
             placeholder="Enter your name"
             required
@@ -128,8 +153,8 @@ const RegistrationForm = () => {
           <input
             type="text"
             id="studentNo"
-            name="studentNo"
-            value={formData.studentNo}
+            name="student_no"
+            value={formData.student_no}
             onChange={handleChange}
             placeholder="Enter your student number"
             required
@@ -158,14 +183,50 @@ const RegistrationForm = () => {
           <input
             type="tel"
             id="phone"
-            name="phone"
-            value={formData.phone}
+            name="phone_no"
+            value={formData.phone_no}
             onChange={handleChange}
             placeholder="Enter your phone number"
             required
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+
+        <div className="mb-4">
+          <label htmlFor="gender" className="block text-gray-700 font-medium mb-2">Gender:</label>
+          <select
+            id="gender"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Gender</option>
+                    <option value="MALE">MALE</option>
+                    <option value="FEMALE">FEMALE</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="hostel" className="block text-gray-700 font-medium mb-2">Residence:</label>
+          <select
+            id="hostel"
+            name="hostel"
+            value={formData.hostel}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Residence</option>
+                    <option value="Hostel">Hostel</option>
+                    <option value="Day-scholar">Day-scholar</option>
+          </select>
+        </div>
+
+
+
+
 
         <div className=" relative mx-auto  z-2 text-center font-albert font-semibold text-[1vw] flex justify-center items-center shadow-sm text-black py-4   px-4  bg-no-repeat bg-center bg-contain w-fit transform hover:scale-105 transition-all ease-in-out delay-0 duration-3000 cursor-pointer ">
           <button className="p-3 text-2xl font-bolder bg-blue-500 rounded-lg w-36">Submit</button>
