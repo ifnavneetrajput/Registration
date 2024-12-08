@@ -218,9 +218,9 @@ const RegistrationForm = () => {
             required
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Residence</option>
-                    <option value="Hostel">Hostel</option>
-                    <option value="Day-scholar">Day-scholar</option>
+            <option value="">Hostel</option>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
           </select>
         </div>
 
