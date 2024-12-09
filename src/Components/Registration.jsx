@@ -154,7 +154,7 @@ const RegistrationForm = () => {
               required
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">Branch</option>
+              <option value="">Select</option>
               <option value="CSE(core)">CSE</option>
               <option value="CSE(AIML)">CSE(AIML)</option>
               <option value="CSE(DS)">CSE(DS)</option>
@@ -241,7 +241,7 @@ const RegistrationForm = () => {
               required
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">Gender</option>
+              <option value="">Select</option>
               <option value="MALE">MALE</option>
               <option value="FEMALE">FEMALE</option>
             </select>
@@ -252,7 +252,7 @@ const RegistrationForm = () => {
             htmlFor="hostel"
             className="block text-gray-700 font-medium mb-2"
           >
-            Residence:
+            Hostel:
           </label>
           <select
             id="hostel"
@@ -262,35 +262,11 @@ const RegistrationForm = () => {
             required
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Hostel</option>
+            <option value="">Select</option>
                     <option value="YES">YES</option>
                     <option value="NO">NO</option>
           </select>
         </div>
-        <ReCAPTCHA
-          sitekey="6LfhDZkaAAAAAA7cvVRIbrOl__2frrLF_aQh7WPL"  // Replace with your site key from Google reCAPTCHA v3
-          size="invisible" // Invisible reCAPTCHA
-        />
-          <div className="mb-4">
-            <label
-              htmlFor="hostel"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Residence:
-            </label>
-            <select
-              id="hostel"
-              name="hostel"
-              value={formData.hostel}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Residence</option>
-              <option value="Hostel">Hostel</option>
-              <option value="Day-scholar">Day-scholar</option>
-            </select>
-          </div>
           <ReCAPTCHA
             sitekey="6LfhDZkaAAAAAA7cvVRIbrOl__2frrLF_aQh7WPL" // Replace with your site key
             size="invisible" // Invisible reCAPTCHA
