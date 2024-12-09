@@ -2,6 +2,7 @@ import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Toaster, toast } from "sonner";
 
+
 const RegistrationForm = () => {
   const [captchaToken, setCaptchaToken] = useState(null);
 
