@@ -13,41 +13,32 @@ const RegistrationForm = () => {
     phone_no: "",
     gender: "",
     hostel: "",
-    recaptcha: "",
+    recaptcha_token: "",
   });
 
   const handleChange = (e) => {
-    let fieldName = e.target.name;
-    let fieldValue = e.target.value;
-    setFormData((currData) => {
-      currData[fieldName] = fieldValue;
-      return { ...currData };
-    });
+    const { name, value } = e.target;
+    setFormData((currData) => ({
+      ...currData,
+      [name]: value,
+    }));
   };
 
   const handleVerify = (token) => {
     setCaptchaToken(token);
     setFormData((currData) => ({
       ...currData,
-      recaptcha: token, // Add the token to formData
+      recaptcha_token: token,
     }));
   };
 
-  const validateEmail = (email) => {
-    // console.log(email);
-    const regex = /^[a-zA-z]+[0-9]+@akgec\.ac.in$/;
-    return regex.test(email);
-  };
+  const validateEmail = (email) =>
+    /^[a-zA-Z]+[0-9]+@akgec\.ac.in$/.test(email);
 
-  const validateNumber = (phone_no) => {
-    // console.log(phone);
-    const regex = /^\d{10}$/;
-    return regex.test(phone_no);
-  };
-  const validateStudentNO = (student_no) => {
-    const regex = /^(21|23|24|25)\d{3,5}$/;
-    return regex.test(student_no);
-  };
+  const validateNumber = (phone_no) => /^\d{10}$/.test(phone_no);
+
+  const validateStudentNO = (student_no) =>
+    /^(21|23|24|25)\d{3,5}$/.test(student_no);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,17 +49,20 @@ const RegistrationForm = () => {
     }
 
     if (!validateStudentNO(formData.student_no.trim())) {
-      toast.error("Please enter a valid student number");
+      toast.error("Please enter a valid student number.");
       return;
     }
+
     if (!validateEmail(formData.email.trim())) {
-      toast.error("Please enter a valid college email");
+      toast.error("Please enter a valid college email.");
       return;
     }
+
     if (!validateNumber(formData.phone_no.trim())) {
-      toast.error("Please enter a valid phone number");
+      toast.error("Please enter a valid phone number.");
       return;
     }
+
     if (!formData.email.includes(formData.student_no.trim())) {
       toast.error("Your student number must be included in your email.");
       return;
@@ -82,7 +76,7 @@ const RegistrationForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData), // formData includes recaptcha token
+          body: JSON.stringify(formData),
         }
       );
 
@@ -99,12 +93,11 @@ const RegistrationForm = () => {
           phone_no: "",
           gender: "",
           hostel: "",
-          recaptcha: "",
+          recaptcha_token: "",
         });
-        setCaptchaToken(null); // Reset captcha token
+        setCaptchaToken(null);
       } else {
         toast.error("Something went wrong. Please try again.");
-        console.error("Error:", response.statusText);
       }
     } catch (error) {
       toast.error("Failed to submit form. Please check your connection.");
@@ -113,7 +106,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className=" bg-cyan-600 m-0 p-0 h-full bg-cover bg-centbg-slate-600 min-h-screen flex justify-center items-centerer ">
+    <div className="bg-cyan-600 min-h-screen flex justify-center items-center">
       <div className="max-w-lg w-full p-6 bg-white shadow-lg rounded-lg m-5">
         <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">
           Registration Form
@@ -121,125 +114,101 @@ const RegistrationForm = () => {
         <Toaster position="top-right" />
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Name:
             </label>
             <input
               type="text"
-              id="name"
               name="fullname"
               value={formData.fullname}
               onChange={handleChange}
               placeholder="Enter your name"
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             />
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="branch"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Branch:
             </label>
             <select
-              id="branch"
               name="branch"
               value={formData.branch}
               onChange={handleChange}
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             >
               <option value="">Select</option>
               <option value="CSE(core)">CSE</option>
-              <option value="CSE(AIML)">CSE(AIML)</option>
-              <option value="CSE(DS)">CSE(DS)</option>
-              <option value="CSE">CSE(Hindi)</option>
-              <option value="CS">CS</option>
-              <option value="IT">IT</option>
-              <option value="CSIT">CSIT</option>
-              <option value="AIML">AIML</option>
-              <option value="ECE/EN">ECE/EN</option>
-              <option value="ME">ME</option>
-              <option value="CE">CE</option>
+                    <option value="CSE(AIML)">CSE(AIML)</option>
+                    <option value="CSE(DS)">CSE(DS)</option>
+                    <option value="CSE">CSE(Hindi)</option>
+                    <option value="CS">CS</option>
+                    <option value="IT">IT</option>
+                    <option value="CSIT">CSIT</option>
+                    <option value="AIML">AIML</option>
+                    <option value="ECE/EN">ECE/EN</option>
+                    <option value="ME">ME</option>
+                    <option value="CE">CE</option>
             </select>
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="studentNo"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Student No:
             </label>
             <input
               type="text"
-              id="studentNo"
               name="student_no"
               value={formData.student_no}
               onChange={handleChange}
               placeholder="Enter your student number"
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             />
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Email ID:
             </label>
             <input
               type="email"
-              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             />
           </div>
 
-          <div className="mb-6">
-            <label
-              htmlFor="phone"
-              className="block text-gray-700 font-medium mb-2"
-            >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
               Phone No:
             </label>
             <input
               type="tel"
-              id="phone"
               name="phone_no"
               value={formData.phone_no}
               onChange={handleChange}
               placeholder="Enter your phone number"
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             />
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="gender"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Gender:
             </label>
             <select
-              id="gender"
               name="gender"
               value={formData.gender}
               onChange={handleChange}
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             >
               <option value="">Select</option>
               <option value="MALE">MALE</option>
@@ -248,36 +217,35 @@ const RegistrationForm = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="hostel"
-              className="block text-gray-700 font-medium mb-2"
-            >
+            <label className="block text-gray-700 font-medium mb-2">
               Hostel:
             </label>
             <select
-              id="hostel"
               name="hostel"
               value={formData.hostel}
               onChange={handleChange}
               required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-md"
             >
               <option value="">Select</option>
               <option value="YES">YES</option>
               <option value="NO">NO</option>
             </select>
           </div>
-          <ReCAPTCHA
-            sitekey="6LfhDZkaAAAAAA7cvVRIbrOl__2frrLF_aQh7WPL" // Replace with your site key
-            size="invisible" // Invisible reCAPTCHA
-            onChange={handleVerify} // Pass the handleVerify function
-          />
 
-          <div className=" relative mx-auto  z-2 text-center font-albert font-semibold text-[1vw] flex justify-center items-center shadow-sm text-black py-4   px-4  bg-no-repeat bg-center bg-contain w-fit transform hover:scale-105 transition-all ease-in-out delay-0 duration-3000 cursor-pointer ">
-            <button className="p-3 text-2xl font-bolder bg-blue-500 rounded-lg w-36">
-              Submit
-            </button>
+          <div className="mb-4 flex justify-center">
+            <ReCAPTCHA
+              sitekey="6LezfHUqAAAAAGhAQ3ZxHFC76e7a8624kdQjYjKM"
+              onChange={handleVerify}
+            />
           </div>
+
+          <button
+            type="submit"
+            className="p-3 text-2xl font-bold bg-blue-500 rounded-lg w-36"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
