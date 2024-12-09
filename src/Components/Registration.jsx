@@ -38,7 +38,7 @@ const RegistrationForm = () => {
   const validateNumber = (phone_no) => /^\d{10}$/.test(phone_no);
 
   const validateStudentNO = (student_no) =>
-    /^(21|23|24|25)\d{3,5}$/.test(student_no);
+    /^2\d{5,8}$/.test(student_no);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -240,12 +240,14 @@ const RegistrationForm = () => {
             />
           </div>
 
-          <button
+         <div className=" flex justify-center items-center">
+         <button
             type="submit"
-            className="p-3 text-2xl font-bold bg-blue-500 rounded-lg w-36"
+            className="p-3 text-2xl font-bold bg-blue-500 rounded-lg w-36 flex justify-center items-center"
           >
             Submit
           </button>
+         </div>
         </form>
       </div>
     </div>
