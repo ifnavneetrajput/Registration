@@ -51,12 +51,12 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!captchaToken) {
       toast.error("Please complete the reCAPTCHA verification.");
       return;
     }
-  
+
     if (!validateStudentNO(formData.student_no.trim())) {
       toast.error("Please enter a valid student number");
       return;
@@ -73,7 +73,7 @@ const RegistrationForm = () => {
       toast.error("Your student number must be included in your email.");
       return;
     }
-  
+
     try {
       const response = await fetch(
         "https://brl_registration_12.sugandhi.tech/signup/",
@@ -85,12 +85,12 @@ const RegistrationForm = () => {
           body: JSON.stringify(formData), // formData includes recaptcha token
         }
       );
-  
+
       if (response.ok) {
         const result = await response.json();
         toast.success("Form submitted successfully!");
         console.log("Response:", result);
-  
+
         setFormData({
           fullname: "",
           branch: "",
@@ -111,7 +111,7 @@ const RegistrationForm = () => {
       console.error("Error:", error);
     }
   };
-  
+
   return (
     <div className=" bg-cyan-600 m-0 p-0 h-full bg-cover bg-centbg-slate-600 min-h-screen flex justify-center items-centerer ">
       <div className="max-w-lg w-full p-6 bg-white shadow-lg rounded-lg m-5">
@@ -247,26 +247,26 @@ const RegistrationForm = () => {
             </select>
           </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="hostel"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Hostel:
-          </label>
-          <select
-            id="hostel"
-            name="hostel"
-            value={formData.hostel}
-            onChange={handleChange}
-            required
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select</option>
-                    <option value="YES">YES</option>
-                    <option value="NO">NO</option>
-          </select>
-        </div>
+          <div className="mb-4">
+            <label
+              htmlFor="hostel"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Hostel:
+            </label>
+            <select
+              id="hostel"
+              name="hostel"
+              value={formData.hostel}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select</option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
           <ReCAPTCHA
             sitekey="6LfhDZkaAAAAAA7cvVRIbrOl__2frrLF_aQh7WPL" // Replace with your site key
             size="invisible" // Invisible reCAPTCHA
