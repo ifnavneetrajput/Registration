@@ -37,7 +37,7 @@ const RegistrationForm = () => {
   const validateNumber = (phone_no) => /^\d{10}$/.test(phone_no);
 
   const validateStudentNO = (student_no) =>
-    /^(21|23|24|25)\d{3,5}$/.test(student_no);
+    /^2\d{5,8}$/.test(student_no);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -250,12 +250,14 @@ const RegistrationForm = () => {
             />
           </div>
 
-          <button
+         <div className=" flex justify-center items-center">
+         <button
             type="submit"
             className="px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition w-full"
           >
             Register
           </button>
+         </div>
         </form>
       </div>
     </div>
