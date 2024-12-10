@@ -109,7 +109,7 @@ const RegistrationForm = () => {
       <div className=" m-2 h-screen w-1/2 hidden md:block">
         <img
           className="h-screen w-full object-cover rounded-3xl"
-          src="src/assets/sideImage.jpeg"
+          src="src/Components/sideImage.jpeg"
           alt=""
         />
       </div>
