@@ -123,7 +123,7 @@ const RegistrationForm = () => {
       </div>
         <Toaster position="top-right" />
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-4 text-gray-400">
             <label className="block text-gray-400 font-medium mb-2">
               Name:
             </label>
@@ -164,7 +164,7 @@ const RegistrationForm = () => {
             </select>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 text-gray-400 ">
             <label className="block text-gray-400 font-medium mb-2">
               Student No:
             </label>
@@ -179,7 +179,7 @@ const RegistrationForm = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 text-gray-400">
             <label className="block text-gray-400 font-medium mb-2">
               Email ID:
             </label>
@@ -194,7 +194,7 @@ const RegistrationForm = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 text-gray-400">
             <label className="block text-gray-400 font-medium mb-2">
               Phone No:
             </label>
