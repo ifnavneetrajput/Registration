@@ -32,8 +32,7 @@ const RegistrationForm = () => {
     }));
   };
 
-  const validateEmail = (email) =>
-    /^[a-zA-Z]+[0-9]+@akgec\.ac.in$/.test(email);
+  const validateEmail = (email) => /^[a-zA-Z]+[0-9]+@akgec\.ac.in$/.test(email);
 
   const validateNumber = (phone_no) => /^\d{10}$/.test(phone_no);
 
@@ -106,15 +105,25 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="bg-cyan-600 min-h-screen flex justify-center items-center">
-      <div className="max-w-lg w-full p-6 bg-white shadow-lg rounded-lg m-5">
-        <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">
+    <div className=" bg-black h-full flex justify-center items-center">
+      <div className=" m-2 h-screen w-1/2 hidden md:block">
+        <img
+          className="h-screen w-full object-cover rounded-3xl"
+          src="src/assets/sideImage.jpeg"
+          alt=""
+        />
+      </div>
+
+      <div className= " h-full bg-black border shadow-lg rounded-lg my-2 ml-10 mr-10 m w-full md:w-1/2 p-6 ">
+      <div className="flex">
+        <h3 className=" text-2xl font-semibold text-center text-blue-600 mb-6">
           Registration Form
-        </h2>
+        </h3>
+      </div>
         <Toaster position="top-right" />
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-400 font-medium mb-2">
               Name:
             </label>
             <input
@@ -124,12 +133,12 @@ const RegistrationForm = () => {
               onChange={handleChange}
               placeholder="Enter your name"
               required
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md bg-transparent"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-400 font-medium mb-2">
               Branch:
             </label>
             <select
@@ -137,25 +146,25 @@ const RegistrationForm = () => {
               value={formData.branch}
               onChange={handleChange}
               required
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md bg-transparent text-gray-500"
             >
               <option value="">Select</option>
               <option value="CSE(core)">CSE</option>
-                    <option value="CSE(AIML)">CSE(AIML)</option>
-                    <option value="CSE(DS)">CSE(DS)</option>
-                    <option value="CSE">CSE(Hindi)</option>
-                    <option value="CS">CS</option>
-                    <option value="IT">IT</option>
-                    <option value="CSIT">CSIT</option>
-                    <option value="AIML">AIML</option>
-                    <option value="ECE/EN">ECE/EN</option>
-                    <option value="ME">ME</option>
-                    <option value="CE">CE</option>
+              <option value="CSE(AIML)">CSE(AIML)</option>
+              <option value="CSE(DS)">CSE(DS)</option>
+              <option value="CSE">CSE(Hindi)</option>
+              <option value="CS">CS</option>
+              <option value="IT">IT</option>
+              <option value="CSIT">CSIT</option>
+              <option value="AIML">AIML</option>
+              <option value="ECE/EN">ECE/EN</option>
+              <option value="ME">ME</option>
+              <option value="CE">CE</option>
             </select>
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-400 font-medium mb-2">
               Student No:
             </label>
             <input
@@ -165,12 +174,12 @@ const RegistrationForm = () => {
               onChange={handleChange}
               placeholder="Enter your student number"
               required
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md bg-transparent"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-400 font-medium mb-2">
               Email ID:
             </label>
             <input
@@ -180,12 +189,12 @@ const RegistrationForm = () => {
               onChange={handleChange}
               placeholder="Enter your email"
               required
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md bg-transparent"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-400 font-medium mb-2">
               Phone No:
             </label>
             <input
@@ -195,42 +204,43 @@ const RegistrationForm = () => {
               onChange={handleChange}
               placeholder="Enter your phone number"
               required
-              className="w-full p-3 border border-gray-300 rounded-md"
+              className="w-full p-3 border border-gray-300 rounded-md bg-transparent"
             />
           </div>
+          <div className=" flex gap-10 justify-around w-full">
+            <div className="mb-4 w-1/2">
+              <label className="block text-gray-400 font-medium mb-2">
+                Gender:
+              </label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+                className="w-full p-3 border border-gray-300 rounded-md bg-transparent text-gray-500"
+              >
+                <option value="" className="text-gray-100">Select</option>
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+              </select>
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Gender:
-            </label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md"
-            >
-              <option value="">Select</option>
-              <option value="MALE">MALE</option>
-              <option value="FEMALE">FEMALE</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Hostel:
-            </label>
-            <select
-              name="hostel"
-              value={formData.hostel}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md"
-            >
-              <option value="">Select</option>
-              <option value="YES">YES</option>
-              <option value="NO">NO</option>
-            </select>
+            <div className="mb-4 w-1/2">
+              <label className="block text-gray-400 font-medium mb-2">
+                Hostel:
+              </label>
+              <select
+                name="hostel"
+                value={formData.hostel}
+                onChange={handleChange}
+                required
+                className="w-full p-3 border border-gray-300 rounded-md bg-transparent text-gray-500"
+              >
+                <option value="" className="">Select</option>
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
           </div>
 
           <div className="mb-4 flex justify-center">
@@ -242,9 +252,9 @@ const RegistrationForm = () => {
 
           <button
             type="submit"
-            className="p-3 text-2xl font-bold bg-blue-500 rounded-lg w-36"
+            className="px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition w-full"
           >
-            Submit
+            Register
           </button>
         </form>
       </div>
