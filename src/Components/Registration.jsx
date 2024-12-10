@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Toaster, toast } from "sonner";
+import image from "../Components/sideImage.jpeg"
 
 const RegistrationForm = () => {
   const [captchaToken, setCaptchaToken] = useState(null);
@@ -109,7 +110,7 @@ const RegistrationForm = () => {
       <div className=" m-2 h-screen w-1/2 hidden md:block">
         <img
           className="h-screen w-full object-cover rounded-3xl"
-          src="src/Components/sideImage.jpeg"
+          src={image}
           alt=""
         />
       </div>
